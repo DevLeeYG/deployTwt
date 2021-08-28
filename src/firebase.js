@@ -14,5 +14,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig); // 여기서만 사용할것
 
 export const authService = firebase.auth(); //다른 컴포넌트에서 참조할것이므로 익스포트하고
+export const firebaseInstance = firebase;
 
 //오토 서비스를 잘 받아오는지?
