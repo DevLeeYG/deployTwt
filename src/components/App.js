@@ -9,10 +9,10 @@ function App() {
   const [init, setInit] = useState(false);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      if (user) {
+      if (user) {//유저의 값이 있는경우
         setIsLoggedIn(user);
       } else {
-        setIsLoggedIn(false);
+        setIsLoggedIn(false);//아니면 펄스
       }
       setInit(true);
     });
