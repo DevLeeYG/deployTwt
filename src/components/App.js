@@ -5,8 +5,8 @@ import { authService } from "../firebase";
 // 소셜 로그인까지 적용할수있다.
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); //트윗과 파이어베이스 로그인연동기능
-  console.log(authService);
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser); //트윗과 파이어베이스 로그인연동기능
+
   return (
     <>
       <AppRouter isLoggedin={isLoggedIn} />

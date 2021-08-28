@@ -1,52 +1,66 @@
-//로그인 폼만들꺼
-import { useState } from "react";
+import { authService } from "../firebase";
+import React, { useState } from "react";
 
 const Auth = () => {
-  const [eMail, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [newAccount, setNewAccount] = useState(true); // Account를 가지고 있는지 확인해서, newAccount 가 필요한 경우 true
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    console.log(e.target.name);
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
   };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    console.log(e.target.name);
+  const onSubmit = async (event) => {
+    // createUserWithEmailAndPassword는 promise를 return 하기 때문에 async로 비동기화 시킴
+    event.preventDefault();
+    try {
+      let data;
+      if (newAccount) {
+        // newAccount의 상태에 따라서 받은 input을 submit의 method로 계정 생성에 쓸건지, 로그인에 쓸건지 조건을 주고 있다.
+        data = await authService.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+      } else {
+        data = await authService.signInWithEmailAndPassword(email, password);
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
-  };
-
   return (
-    <form>
-      <div onSubmit={onSubmit}>
+    <div>
+      <form onSubmit={onSubmit}>
         <input
           name="email"
-          value={eMail}
-          onChange={handleEmailChange}
           type="email"
-          placeholder="E-Mail"
+          placeholder="Email"
           required
+          value={email}
+          onChange={onChange}
         />
-
         <input
           name="password"
-          value={password}
-          placeholder="password"
-          onChange={handlePasswordChange}
           type="password"
+          placeholder="Password"
           required
+          value={password}
+          onChange={onChange}
         />
-        <input type="submit" value="Log In" />
-      </div>
+        <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
+      </form>
       <div>
         <button>Continue with Google</button>
         <button>Continue with Github</button>
       </div>
-    </form>
+    </div>
   );
 };
-
 export default Auth;
-//required 반드시 채워서 보내야되는 설정
-//로그인구현할때는 form 태그 추천

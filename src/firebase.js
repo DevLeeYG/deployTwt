@@ -10,7 +10,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
 };
-console.log(firebaseConfig);
+
 firebase.initializeApp(firebaseConfig); // 여기서만 사용할것
 
 export const authService = firebase.auth(); //다른 컴포넌트에서 참조할것이므로 익스포트하고
