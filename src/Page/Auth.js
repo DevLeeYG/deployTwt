@@ -5,7 +5,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true); // Account를 가지고 있는지 확인해서, newAccount 가 필요한 경우 true
-
+  const [error, setError] = useState(""); // 에러관리 // 무슨에러를 담아야할까?
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -32,7 +32,7 @@ const Auth = () => {
       }
       console.log(data);
     } catch (error) {
-      console.log(error);
+      setError("The email address is already in use by another account"); //에러안의 메세지가
     }
   };
   return (
@@ -54,7 +54,9 @@ const Auth = () => {
           value={password}
           onChange={onChange}
         />
+        {/*에러메시지 에러가 있다 면 에러가 seterror로 변함 */}
         <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
+        {error}
       </form>
       <div>
         <button>Continue with Google</button>
@@ -64,3 +66,14 @@ const Auth = () => {
   );
 };
 export default Auth;
+
+//로그인할때는 폼태그 폼에 온 서브밋으로 제출할수있게 만들어야함 서버로
+
+/* 뉴어카운트가 트루일때는 가입할때의 상태인데 만약 상태가 있다면 펄스느 로그인할때의 상태이다 
+   setPersistence = loca,session, none, 옵션 로그인을 한상태를 유지는 어떠헥?
+
+   local : 웹 브라우조를 종료해도 유지
+   session : 웹 브라우조의 탭을 종료하면 로그아웃
+   none : 새로고침하면 로그아웃
+   
+*/

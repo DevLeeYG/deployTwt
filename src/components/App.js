@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { authService } from "../firebase";
 //내가 서버를만든상태라면 전부내가 회원가입로그인기능을 구축해야되지만 파이어베이스를이용한다면 모든기능을 가단하게
@@ -6,10 +6,23 @@ import { authService } from "../firebase";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser); //트윗과 파이어베이스 로그인연동기능
+  const [init, setInit] = useState(false);
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(user);
+      } else {
+        setIsLoggedIn(false);
+      }
+      setInit(true);
+    });
+  }, []);
+  //로그인정보를 받게됬을대 파이어베이스가 초기화되는 시점.. 이시점을 유즈이펙트로 잡아내고 로그인 오나료후 화면 렌더링
+  //onAuthStateChanged 함수는 인증상태가 바뀌는것을 감지하는 함수
 
   return (
     <>
-      <AppRouter isLoggedin={isLoggedIn} />
+      {init ? <AppRouter isLoggedin={isLoggedIn} /> : "initializing..."}
       <footer>Copyright@{new Date().getFullYear()}</footer>
     </>
   );
