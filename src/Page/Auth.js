@@ -35,6 +35,8 @@ const Auth = () => {
       setError("The email address is already in use by another account"); //에러안의 메세지가
     }
   };
+
+  const toggleAccount = () => setNewAccount((prev) => !prev);
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -58,6 +60,9 @@ const Auth = () => {
         <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
         {error}
       </form>
+      <span onClick={toggleAccount}>
+        {newAccount ? "Sign In" : "Create Account"}
+      </span>
       <div>
         <button>Continue with Google</button>
         <button>Continue with Github</button>
