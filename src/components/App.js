@@ -7,12 +7,15 @@ import { authService } from "../firebase";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser); //트윗과 파이어베이스 로그인연동기능
   const [init, setInit] = useState(false);
+  const [userObj, setUserObj] = useState(null);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      if (user) {//유저의 값이 있는경우
+      if (user) {
+        //유저의 값이 있는경우
         setIsLoggedIn(user);
+        setUserObj(user);
       } else {
-        setIsLoggedIn(false);//아니면 펄스
+        setIsLoggedIn(false); //아니면 펄스
       }
       setInit(true);
     });
@@ -22,7 +25,11 @@ function App() {
 
   return (
     <>
-      {init ? <AppRouter isLoggedin={isLoggedIn} /> : "initializing..."}
+      {init ? (
+        <AppRouter isLoggedin={isLoggedIn} userObj={userObj} />
+      ) : (
+        "initializing..."
+      )}
       <footer>Copyright@{new Date().getFullYear()}</footer>
     </>
   );
