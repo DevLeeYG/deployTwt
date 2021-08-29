@@ -26,7 +26,7 @@ function App() {
   return (
     <>
       {init ? (
-        <AppRouter isLoggedin={isLoggedIn} userObj={userObj} />
+        <AppRouter isLoggedin={isLoggedIn} userObj={userObj} />//유저obj가 set으로 유즈이펙트로 연결햇을시에 전송
       ) : (
         "initializing..."
       )}

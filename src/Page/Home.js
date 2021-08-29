@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { dbService } from "../firebase";
 
+import Tweet from "./Tweet";
+
 const Home = ({ userObj }) => {
   // console.log(userObj); //uid가 있다 (userid)
   const [tweet, setTweet] = useState(""); //트윗
@@ -23,7 +25,7 @@ const Home = ({ userObj }) => {
         id: doc.id,
         ...doc.data(),
       }));
-      setTweets(newArray);
+      setTweets(newArray); //tweets->셋 트위츠
     });
   }, []);
 
@@ -59,9 +61,11 @@ const Home = ({ userObj }) => {
       <div>
         {tweets.map((tweet) => {
           return (
-            <div key={tweet.id}>
-              <h4>{tweet.text}</h4>
-            </div>
+            <Tweet
+              key={tweet.id}
+              tweetObj={tweet}
+              isOwner={tweet.creatorId === userObj.uid}
+            ></Tweet>
           );
         })}
       </div>
