@@ -1,6 +1,6 @@
 //홈.. 페이지로 프로필이나 트윗등록이나 여러가지 할수잇는 환경이다
 import { useState, useEffect } from "react";
-import { dbService } from "../firebase";
+import { dbService, firebaseInstance } from "../firebase";
 
 import Tweet from "./Tweet";
 
@@ -8,6 +8,7 @@ const Home = ({ userObj }) => {
   // console.log(userObj); //uid가 있다 (userid)
   const [tweet, setTweet] = useState(""); //트윗
   const [tweets, setTweets] = useState([]); //목록
+  const [attachment, setAttachment] = useState(""); //사진 미리보기 구현
 
   // const getTweets = async () => {
   //   const dbTweet = await dbService.collection("tweets").get(); //데이터베이스 트윗 겟요청
@@ -46,6 +47,21 @@ const Home = ({ userObj }) => {
     //event.target.value
   };
 
+  const onFileChange = (event) => {
+    const {
+      target: { files }, //구조분해할당
+    } = event;
+    const theFile = files[0];
+    const reader = new FileReader(); //파일을 읽어주는 브라우저 api
+    reader.onloadend = (finishedEvent) => {
+      const {
+        currentTaget: { result },
+      } = finishedEvent;
+      setAttachment(result); //url값을 얻기위해 구조분해할당
+    };
+    reader.readAsDataURL(theFile);
+  };
+  //readAsDataURL 은 파일을 인식하는시점과 끝남시점을 포함하궈있어서 시점까지 관리해줘야함
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -56,7 +72,11 @@ const Home = ({ userObj }) => {
           value={tweet}
           onChange={onChange}
         />
+        <input type="file" accept="image/*" onChange={onFileChange} />
+        {/*웹에올릴때는 타입은 파일로하면된다 */}
         <input type="submit" value="Tweet" />
+        {attachment && <img src={attachment} width="50px" height="50px" />}
+        {/*&& attachment가 있을경우 */}
       </form>
       <div>
         {tweets.map((tweet) => {
