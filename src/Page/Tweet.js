@@ -1,4 +1,4 @@
-import { dbService } from "../firebase";
+import { dbService, storageService } from "../firebase";
 import { useState } from "react";
 /* creatorid 로 uid추가한이유는 삭제와 수정기능에 필요하기때문이다
 트윗을쓴사람만 삭제나 수정이 가능하게 하려면 creatorId와 현재 로그인사람의 uid를 비교해서 같으면 삭제 수정을 보여주면된다
@@ -12,6 +12,8 @@ const Tweet = ({ tweetObj, isOwner }) => {
     const ok = window.confirm("삭제하시겠습니까?");
     if (ok) {
       await dbService.doc(`tweets/${tweetObj.id}`).delete();
+      if (tweetObj.attachmentUrl !== "")
+        await storageService.refFromURL(tweetObj.attachmentUrl).delete();
     }
   };
 

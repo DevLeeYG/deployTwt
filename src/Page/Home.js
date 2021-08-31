@@ -36,12 +36,15 @@ const Home = ({ userObj }) => {
     //   .collection("tweets") //컬렉션을 생성한다//add는 파이어스토어에 저장할때 add
     //   .add({ text: tweet, createdAt: Date.now(), creatorId: userObj.uid }); //파이어베이스 데이터베이스에 저장//문서생성
     // setTweet(""); //트위한후 초기화
-    const attachmentRef = storageService
-      .ref()
-      .child(`${userObj.uid}/${uuidv4()}`);
-    //스토리지 호출   레퍼호출 차일드함수에 아이디를 폴더이름으로 파일이름을 uuidv4처리
-    const response = await attachmentRef.putString(attachment, "data_url");
-    const attachmentUrl = await response.ref.getDownloadURL(); // putString 함수
+    let attachmentUrl = "";
+    if (attachment !== "") {
+      const attachmentRef = storageService
+        .ref()
+        .child(`${userObj.uid}/${uuidv4()}`);
+      //스토리지 호출   레퍼호출 차일드함수에 아이디를 폴더이름으로 파일이름을 uuidv4처리
+      const response = await attachmentRef.putString(attachment, "data_url");
+      attachmentUrl = await response.ref.getDownloadURL(); // putString 함수
+    }
     await dbService.collection("tweets").add({
       text: tweet,
       createdAt: Date.now(),
