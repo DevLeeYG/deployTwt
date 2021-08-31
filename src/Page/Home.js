@@ -55,12 +55,13 @@ const Home = ({ userObj }) => {
     const reader = new FileReader(); //파일을 읽어주는 브라우저 api
     reader.onloadend = (finishedEvent) => {
       const {
-        currentTaget: { result },
+        currentTarget: { result },
       } = finishedEvent;
       setAttachment(result); //url값을 얻기위해 구조분해할당
     };
     reader.readAsDataURL(theFile);
   };
+  const onClearAttachment = () => setAttachment("");
   //readAsDataURL 은 파일을 인식하는시점과 끝남시점을 포함하궈있어서 시점까지 관리해줘야함
   return (
     <>
@@ -75,7 +76,12 @@ const Home = ({ userObj }) => {
         <input type="file" accept="image/*" onChange={onFileChange} />
         {/*웹에올릴때는 타입은 파일로하면된다 */}
         <input type="submit" value="Tweet" />
-        {attachment && <img src={attachment} width="50px" height="50px" />}
+        {attachment && (
+          <div>
+            <img src={attachment} width="50px" height="50px" alt="" />
+            <button onClick={onClearAttachment}>Clear</button>
+          </div>
+        )}
         {/*&& attachment가 있을경우 */}
       </form>
       <div>
