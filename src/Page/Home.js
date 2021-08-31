@@ -1,7 +1,7 @@
 //홈.. 페이지로 프로필이나 트윗등록이나 여러가지 할수잇는 환경이다
 import { useState, useEffect } from "react";
-import { dbService, firebaseInstance } from "../firebase";
-
+import { dbService, storageService } from "../firebase";
+import { v4 as uuidv4 } from "uuid";
 import Tweet from "./Tweet";
 
 const Home = ({ userObj }) => {
@@ -32,10 +32,16 @@ const Home = ({ userObj }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    await dbService
-      .collection("tweets") //컬렉션을 생성한다//add는 파이어스토어에 저장할때 add
-      .add({ text: tweet, createdAt: Date.now(), creatorId: userObj.uid }); //파이어베이스 데이터베이스에 저장//문서생성
-    setTweet(""); //트위한후 초기화
+    // await dbService
+    //   .collection("tweets") //컬렉션을 생성한다//add는 파이어스토어에 저장할때 add
+    //   .add({ text: tweet, createdAt: Date.now(), creatorId: userObj.uid }); //파이어베이스 데이터베이스에 저장//문서생성
+    // setTweet(""); //트위한후 초기화
+    const attachmentRef = storageService
+      .ref()
+      .child(`${userObj.uid}/${uuidv4()}`);
+    //스토리지 호출   레퍼호출 차일드함수에 아이디를 폴더이름으로 파일이름을 uuidv4처리
+    const response = await attachmentRef.putString(attachment, "data_url");
+    console.log(response);
   };
 
   const onChange = (event) => {

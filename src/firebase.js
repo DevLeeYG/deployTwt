@@ -1,5 +1,5 @@
 import firebase from "firebase/compat/app";
-
+import "firebase/compat/storage";
 import "firebase/compat/auth";
 import "firebase/compat/firestore"; // 파이어베이스 데이터베이스
 const firebaseConfig = {
@@ -16,5 +16,5 @@ firebase.initializeApp(firebaseConfig); // 여기서만 사용할것
 export const authService = firebase.auth(); //다른 컴포넌트에서 참조할것이므로 익스포트하고
 export const firebaseInstance = firebase;
 export const dbService = firebase.firestore(); //홈에서 데이터베이스를 저장할거다
-
+export const storageService = firebase.storage();
 //오토 서비스를 잘 받아오는지?
