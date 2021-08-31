@@ -41,7 +41,15 @@ const Home = ({ userObj }) => {
       .child(`${userObj.uid}/${uuidv4()}`);
     //스토리지 호출   레퍼호출 차일드함수에 아이디를 폴더이름으로 파일이름을 uuidv4처리
     const response = await attachmentRef.putString(attachment, "data_url");
-    console.log(response);
+    const attachmentUrl = await response.ref.getDownloadURL(); // putString 함수
+    await dbService.collection("tweets").add({
+      text: tweet,
+      createdAt: Date.now(),
+      creatorId: userObj.uid,
+      attachmentUrl,
+    });
+    setTweet("");
+    setAttachment("");
   };
 
   const onChange = (event) => {

@@ -41,6 +41,14 @@ const Tweet = ({ tweetObj, isOwner }) => {
       ) : (
         <>
           <h4>{tweetObj.text}</h4>{" "}
+          {tweetObj.attachmentUrl && (
+            <img
+              src={tweetObj.attachmentUrl}
+              width="50px"
+              height="50px"
+              alt=""
+            />
+          )}
           {/*isOwner는 로그인한 아이디가 현재아이디와같다면 보여주는것이다 */}
           {isOwner && (
             <>
