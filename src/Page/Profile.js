@@ -1,30 +1,39 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useHistory } from "react-router-dom";
 import { authService, dbService } from "../firebase";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const Profile = ({ userObj }) => {
+const Profile = ({ userObj, refreshUser }) => {
   const history = useHistory();
-
-  const getMyTweet = async () => {
-    const tweets = await dbService
-      .collection("tweets")
-      .where("creatorId", "==", userObj.uid)
-      .orderBy("creatorAt")
-      .get();
-    tweets.docs.map((doc) => doc.data());
-  };
-  useEffect(() => {
-    getMyTweet();
-  }, []);
+  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+  //뉴디스플레이는 새별명을 지어주는거
   const onLogOutClick = () => {
     //로그아웃클릭을했을때 그냥 홈으로 바꿔줌
     authService.signOut();
     history.push("/");
   };
 
+  const handleChange = (e) => {
+    setNewDisplayName(e.target.value);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (userObj.displayName !== newDisplayName) {
+      await userObj.updateProfile({ displayName: newDisplayName });
+      refreshUser();
+    }
+  };
+
   return (
     <>
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={handleChange}
+          value={newDisplayName}
+          type="text"
+          placeholder="Display name"
+        />
+        <input type="submit" value="Update Profile" />
+      </form>
       <button onClick={onLogOutClick}>Log Out</button>
     </>
   );

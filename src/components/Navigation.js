@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navigation = () => {
+const Navigation = ({ userObj }) => {
+  console.log(userObj);
   return (
     <div>
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link> 
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/profile">My profile</Link>
+            <Link to="/profile">{userObj.displayName}의 Profile</Link>
           </li>
         </ul>
       </nav>

@@ -4,11 +4,11 @@ import Home from "../Page/Home";
 import Navigation from "./Navigation";
 import Profile from "../Page/Profile";
 
-const AppRouter = ({ isLoggedin, userObj }) => {
+const AppRouter = ({ isLoggedin, userObj, refreshUser }) => {
   return (
     //로그인 되상태에서만 네비게이션 로그인이 되면 홈 컴포넌트 로그아웃이면 Auth
     <Router>
-      {isLoggedin && <Navigation />}
+      {isLoggedin && <Navigation userObj={userObj} />}
       <Switch>
         {isLoggedin ? (
           <>
@@ -16,7 +16,7 @@ const AppRouter = ({ isLoggedin, userObj }) => {
               <Home userObj={userObj} />
             </Route>
             <Route exact={true} path="/profile">
-              <Profile userObj={userObj} />
+              <Profile refreshUser={refreshUser} userObj={userObj} />
             </Route>
           </>
         ) : (

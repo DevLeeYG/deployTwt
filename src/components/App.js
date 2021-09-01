@@ -12,8 +12,12 @@ function App() {
     authService.onAuthStateChanged((user) => {
       if (user) {
         //유저의 값이 있는경우
-        setIsLoggedIn(user);
-        setUserObj(user);
+
+        setUserObj({
+          uid: user.uid,
+          displayName: user.displayName,
+          updateProfile: (args) => user.updateProfile(args),
+        });
       } else {
         setIsLoggedIn(false); //아니면 펄스
       }
@@ -22,11 +26,24 @@ function App() {
   }, []);
   //로그인정보를 받게됬을대 파이어베이스가 초기화되는 시점.. 이시점을 유즈이펙트로 잡아내고 로그인 오나료후 화면 렌더링
   //onAuthStateChanged 함수는 인증상태가 바뀌는것을 감지하는 함수
-
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    setUserObj({
+      uid: user.uid,
+      displayName: user.displayName,
+      updateProfile: (arg) => {
+        user.updateProfile(arg);
+      },
+    });
+  };
   return (
     <>
       {init ? (
-        <AppRouter isLoggedin={isLoggedIn} userObj={userObj} /> //유저obj가 set으로 유즈이펙트로 연결햇을시에 전송
+        <AppRouter
+          refreshUser={refreshUser}
+          isLoggedin={Boolean(userObj)}
+          userObj={userObj}
+        /> //유저obj가 set으로 유즈이펙트로 연결햇을시에 전송
       ) : (
         "initializing..."
       )}
