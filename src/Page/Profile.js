@@ -1,14 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useHistory } from "react-router-dom";
-import { authService } from "../firebase";
+import { authService, dbService } from "../firebase";
+import { useEffect } from "react";
 
-const Profile = () => {
+const Profile = ({ userObj }) => {
   const history = useHistory();
 
+  const getMyTweet = async () => {
+    const tweets = await dbService
+      .collection("tweets")
+      .where("creatorId", "==", userObj.uid)
+      .orderBy("creatorAt")
+      .get();
+    tweets.docs.map((doc) => doc.data());
+  };
+  useEffect(() => {
+    getMyTweet();
+  }, []);
   const onLogOutClick = () => {
     //로그아웃클릭을했을때 그냥 홈으로 바꿔줌
     authService.signOut();
     history.push("/");
   };
+
   return (
     <>
       <button onClick={onLogOutClick}>Log Out</button>

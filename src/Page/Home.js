@@ -37,7 +37,7 @@ const Home = ({ userObj }) => {
     //   .add({ text: tweet, createdAt: Date.now(), creatorId: userObj.uid }); //파이어베이스 데이터베이스에 저장//문서생성
     // setTweet(""); //트위한후 초기화
     let attachmentUrl = "";
-    if (attachment !== "") {
+    if (attachment !== "") {//atta가 있을때만 스토리지에 등록할수있어 파일을
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
