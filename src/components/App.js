@@ -5,7 +5,6 @@ import { authService } from "../firebase";
 // 소셜 로그인까지 적용할수있다.
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser); //트윗과 파이어베이스 로그인연동기능
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
   useEffect(() => {
@@ -19,7 +18,7 @@ function App() {
           updateProfile: (args) => user.updateProfile(args),
         });
       } else {
-        setIsLoggedIn(false); //아니면 펄스
+        setUserObj(false); //아니면 펄스
       }
       setInit(true);
     });
