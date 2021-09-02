@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/deployTwt/static/js/main.96a1339f.chunk.js",
-    "main.js.map": "/deployTwt/static/js/main.96a1339f.chunk.js.map",
+    "main.js": "/deployTwt/static/js/main.48a90167.chunk.js",
+    "main.js.map": "/deployTwt/static/js/main.48a90167.chunk.js.map",
     "runtime-main.js": "/deployTwt/static/js/runtime-main.b901dd19.js",
     "runtime-main.js.map": "/deployTwt/static/js/runtime-main.b901dd19.js.map",
-    "static/js/2.8a38967b.chunk.js": "/deployTwt/static/js/2.8a38967b.chunk.js",
-    "static/js/2.8a38967b.chunk.js.map": "/deployTwt/static/js/2.8a38967b.chunk.js.map",
+    "static/js/2.e1ca73d6.chunk.js": "/deployTwt/static/js/2.e1ca73d6.chunk.js",
+    "static/js/2.e1ca73d6.chunk.js.map": "/deployTwt/static/js/2.e1ca73d6.chunk.js.map",
     "index.html": "/deployTwt/index.html",
-    "static/js/2.8a38967b.chunk.js.LICENSE.txt": "/deployTwt/static/js/2.8a38967b.chunk.js.LICENSE.txt"
+    "static/js/2.e1ca73d6.chunk.js.LICENSE.txt": "/deployTwt/static/js/2.e1ca73d6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b901dd19.js",
-    "static/js/2.8a38967b.chunk.js",
-    "static/js/main.96a1339f.chunk.js"
+    "static/js/2.e1ca73d6.chunk.js",
+    "static/js/main.48a90167.chunk.js"
   ]
 }
