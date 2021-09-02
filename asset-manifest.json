@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/DevLeeYG/deployTwt/static/js/main.96a1339f.chunk.js",
+    "main.js.map": "/DevLeeYG/deployTwt/static/js/main.96a1339f.chunk.js.map",
+    "runtime-main.js": "/DevLeeYG/deployTwt/static/js/runtime-main.187aa17b.js",
+    "runtime-main.js.map": "/DevLeeYG/deployTwt/static/js/runtime-main.187aa17b.js.map",
+    "static/js/2.ecd2c030.chunk.js": "/DevLeeYG/deployTwt/static/js/2.ecd2c030.chunk.js",
+    "static/js/2.ecd2c030.chunk.js.map": "/DevLeeYG/deployTwt/static/js/2.ecd2c030.chunk.js.map",
+    "index.html": "/DevLeeYG/deployTwt/index.html",
+    "static/js/2.ecd2c030.chunk.js.LICENSE.txt": "/DevLeeYG/deployTwt/static/js/2.ecd2c030.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.187aa17b.js",
+    "static/js/2.ecd2c030.chunk.js",
+    "static/js/main.96a1339f.chunk.js"
+  ]
+}
